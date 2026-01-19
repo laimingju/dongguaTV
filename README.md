@@ -50,8 +50,8 @@ cd dongguaTV
 docker compose up -d --build
 ```
 ### 访问应用
-- 前端页面: http://localhost:3000
-- 后台管理: http://localhost:3000/admin.html
+- 前端页面: http://localhost:3010
+- 后台管理: http://localhost:3010/admin.html
 - 管理员密码: `admin`
 
 ## 📡 API接口
@@ -103,7 +103,7 @@ POST /api/admin/sites              # 更新站点配置
 
 ### 环境配置
 ```javascript
-const PORT = 3000;              // 服务端口
+const PORT = 3010;              // 服务端口
 const ADMIN_PASSWORD = "admin"; // 管理员密码
 const FORCE_UPDATE = true;      // 是否强制更新站点配置
 ```

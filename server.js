@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3010;
 const DATA_FILE = path.join(__dirname, 'db.json');
 const ADMIN_PASSWORD = "admin"; 
 const FORCE_UPDATE = true; 

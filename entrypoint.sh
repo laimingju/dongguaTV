@@ -17,4 +17,4 @@ else
 fi
 
 # 启动应用
-exec npm start -- --port="${PORT:-3000}"
+exec npm start -- --port="${PORT:-3010}"

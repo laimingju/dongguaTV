@@ -10,3 +10,5 @@ services:
     - PORT=3010
     - TMDB_API_KEY=key
     - ADMIN_PASSWORD=admin
+    volumes:
+    - ./db.json:/app/db.json

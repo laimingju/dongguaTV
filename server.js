@@ -75,7 +75,15 @@ function getDB() {
         return { sites: DEFAULT_SITES };
     }
 }
-function saveDB(data) { fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2)); }
+function saveDB(data) {
+    try {
+        fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+        console.log(`[DB] Saved to ${DATA_FILE}`);
+    } catch (e) {
+        console.error(`[DB] Save failed:`, e.message);
+        throw e;
+    }
+}
 
 // === ★ 新增：真实测速接口 ★ ===
 app.get('/api/check', async (req, res) => {

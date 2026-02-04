@@ -49,8 +49,8 @@
         </nav>
 
         <!-- 1. Hero Carousel -->
-        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
-            <div class="carousel-inner" v-if="heroList.length > 0">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000" v-if="hasTmdbKey && heroList.length > 0">
+            <div class="carousel-inner">
                 <div class="carousel-item" v-for="(item, index) in heroList" :key="index"
                     :class="{ active: index === 0 }">
                     <div class="hero-bg" :style="{ backgroundImage: 'url(' + item.backdrop + ')' }"></div>
@@ -72,7 +72,7 @@
         </div>
 
         <!-- 2. Search -->
-        <div class="search-section">
+        <div class="search-section" :style="{ marginTop: hasTmdbKey ? '-35px' : '80px' }">
             <div class="search-box-wrapper">
                 <i class="fas fa-search search-icon" @click="doSearch"></i>
                 <input type="text" v-model="keyword" @keyup.enter="doSearch" class="search-input"
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <div v-if="!searched">
+        <div v-if="!searched && hasTmdbKey">
             <!-- 3. TMDb Movies -->
             <div class="section-container animate__animated animate__fadeInUp" v-if="movieList.length > 0">
                 <div class="section-header">
@@ -436,16 +436,22 @@
             },
             mounted() {
                 window.addEventListener('scroll', () => { this.scrollY = window.scrollY; });
-                this.fetchHero();
-                this.fetchAllLists();
-                
-                // 初始化热榜滑动功能
+                if (this.hasTmdbKey) {
+                    this.fetchHero();
+                    this.fetchAllLists();
+                }
+
                 this.$nextTick(() => {
-                    initHotRowSwipe();
-                    this.initHotRowNavStates();
+                    if (this.hasTmdbKey) {
+                        initHotRowSwipe();
+                        this.initHotRowNavStates();
+                    }
                 });
             },
             computed: {
+                hasTmdbKey() {
+                    return TMDB_API_KEY && TMDB_API_KEY !== "替换成你自己的KEY" && TMDB_API_KEY.trim() !== "";
+                },
                 groupedList() {
                     const groups = {};
                     this.rawList.forEach(item => {
